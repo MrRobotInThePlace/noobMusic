@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
+
 public interface ArtistRepository extends JpaRepository<Artist,Integer> {
         List<Artist> findByName(String name);
 
