@@ -2,43 +2,40 @@ package com.noobMusic.apirest.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name="Artist")
 public class Artist {
-
-    @OneToMany(mappedBy = "artist")
-    @JsonBackReference
-    @JsonIgnoreProperties("artist")
-    private List<Album> discographie;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (name = "ArtistId")
+    @Column(name = "ArtistId")
     private Integer id;
 
-    @Column (name = "Name")
+    @Column(name = "Name")
     private String name;
 
-    public Artist() {
+    @OneToMany( mappedBy = "artist" )
+    @JsonManagedReference
+    private List<Album> albums;
+
+    public List<Album> getAlbums() {
+        return albums;
     }
 
-    public Artist(List<Album> discographie, Integer id, String name) {
-        this.discographie = discographie;
-        this.id = id;
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
+
+    public Artist(){
+
+    }
+    public Artist(String name) {
         this.name = name;
-    }
-
-    public List<Album> getDiscographie() {
-        return discographie;
-    }
-
-    public void setDiscographie(List<Album> discographie) {
-        this.discographie = discographie;
     }
 
     public Integer getId() {

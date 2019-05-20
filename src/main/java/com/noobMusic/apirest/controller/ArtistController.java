@@ -4,6 +4,7 @@ import com.noobMusic.apirest.model.Artist;
 import com.noobMusic.apirest.service.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +19,9 @@ public class ArtistController {
     @RequestMapping(
             method = RequestMethod.GET,
             value = "/{id}")
+
     public Artist seeArtist(
-            @PathVariable Integer id){
+            @PathVariable ("id") Integer id){
         return this.artistService.seeArtist(id);
     }
 
@@ -31,14 +33,43 @@ public class ArtistController {
         return this.artistService.seeArtistName(name);
     }
 
-
     @RequestMapping
     public Page<Artist> findAllArtist
             (@RequestParam(value="page") Integer page,
              @RequestParam(value="size") Integer size,
-             @RequestParam(value="sortProperty") String sortProperty,
-             @RequestParam(value="sortDirection") String sortDirection) {
-        return artistService.findAllArtist(page, size, sortProperty, sortDirection);
+             @RequestParam(value="sortDirection") String sortDirection,
+             @RequestParam(value="sortProperty") String sortProperty){
+        return artistService.findAllArtist(page, size, sortDirection, sortProperty);
     }
 
+    @RequestMapping(
+            method = RequestMethod.POST,
+ //           consumes = "application/json",
+//            produces = "application/json",
+            value = ""
+    )
+    public Artist AddArtist( @RequestBody Artist a){
+        return artistService.saveArtist(a);
+    }
+
+    @RequestMapping(
+            method = RequestMethod.PUT,
+            value = "/{id}"
+    )
+    public Artist AddArtist(
+            @PathVariable(value = "id")Integer id,
+            @RequestBody Artist a) throws Exception
+    {
+        return artistService.updateAddArtist(id, a);
+    }
+
+    @RequestMapping(
+            method = RequestMethod.DELETE,
+            value = "/{id}"
+    )
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void artistDelete(
+            @PathVariable(value = "id")Integer id) throws Exception {
+        artistService.deleteArtist(id);
+    }
 }
