@@ -42,27 +42,29 @@ public class ArtistController {
         return artistService.findAllArtist(page, size, sortDirection, sortProperty);
     }
 
+    //ajouter un artiste à la DB2
     @RequestMapping(
             method = RequestMethod.POST,
- //           consumes = "application/json",
-//            produces = "application/json",
             value = ""
     )
     public Artist AddArtist( @RequestBody Artist a){
         return artistService.saveArtist(a);
     }
 
+    //Mise à jour d'un artiste déjà existant
     @RequestMapping(
             method = RequestMethod.PUT,
             value = "/{id}"
     )
     public Artist AddArtist(
             @PathVariable(value = "id")Integer id,
-            @RequestBody Artist a) throws Exception
+            @RequestBody Artist a
+    ) throws Exception
     {
         return artistService.updateAddArtist(id, a);
     }
 
+    //supprimer un artiste (gestion du message d'affichage de validation ou d'erreur de la suppression)
     @RequestMapping(
             method = RequestMethod.DELETE,
             value = "/{id}"

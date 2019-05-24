@@ -32,8 +32,7 @@ public class GlobalExceptionHandler
     @ExceptionHandler(AlreadyExistException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.CONFLICT)
-    public String AlreadyExistException(
-            AlreadyExistException alreadyExistException) {
+    public String AlreadyExistException(AlreadyExistException alreadyExistException) {
         return alreadyExistException.getMessage();
     }
 

@@ -1,17 +1,18 @@
 package com.noobMusic.apirest.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "album")
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "AlbumId")
     private Integer id;
 
-    private String Title;
+    @Column(name = "Title")
+    private String title;
 
     @ManyToOne
     @JoinColumn( name = "ArtistId" )
@@ -21,22 +22,12 @@ public class Album {
     public Album() {
     }
 
-    public Artist getArtist() {
-
-        return artist;
-    }
-
-    public void setArtist(Artist artist) {
-        this.artist = artist;
-    }
-
-    public Album(String title, Artist artist) {
-        Title = title;
-        this.artist = artist;
+    public Album(String title, Integer id) {
+        this.title = title;
+        this.id = id;
     }
 
     public Integer getId() {
-
         return id;
     }
 
@@ -45,12 +36,10 @@ public class Album {
     }
 
     public String getTitle() {
-
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-
-        Title = title;
+        this.title = title;
     }
 }

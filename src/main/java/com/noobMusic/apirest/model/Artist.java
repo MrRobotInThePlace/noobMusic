@@ -1,7 +1,5 @@
 package com.noobMusic.apirest.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -9,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "artist")
 public class Artist {
 
     @Id
@@ -23,18 +22,12 @@ public class Artist {
     @JsonManagedReference
     private List<Album> albums;
 
-    public List<Album> getAlbums() {
-        return albums;
-    }
-
-    public void setAlbums(List<Album> albums) {
-        this.albums = albums;
-    }
-
     public Artist(){
 
     }
-    public Artist(String name) {
+    public Artist(List <Album> albums, Integer id, String name) {
+        this.albums = albums;
+        this.id = id;
         this.name = name;
     }
 
